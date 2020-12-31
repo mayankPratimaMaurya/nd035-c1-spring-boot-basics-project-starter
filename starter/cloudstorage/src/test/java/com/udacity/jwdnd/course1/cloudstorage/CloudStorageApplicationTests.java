@@ -6,6 +6,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
+import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class CloudStorageApplicationTests {
@@ -33,9 +35,33 @@ class CloudStorageApplicationTests {
 	}
 
 	@Test
-	public void getLoginPage() {
+	public void getLoginPage() throws InterruptedException{
 		driver.get("http://localhost:" + this.port + "/login");
+		Thread.sleep(500);
+
 		Assertions.assertEquals("Login", driver.getTitle());
+
 	}
 
+	@Test
+	public void checkIfHomePageLoadsWithoutLogin() throws InterruptedException{
+
+		driver.get("http://localhost:" + this.port + "/home");
+		Thread.sleep(500);
+		Assertions.assertNotEquals("Home",driver.getTitle());
+		Assertions.assertEquals("Login",driver.getTitle());
+
+	}
+
+	@Test
+	public void checkIfErrorMessageMessageIsShownWithoutLogin() throws InterruptedException{
+		driver.get("http://localhost:" + this.port + "/login");
+		Assertions.assertThrows(NoSuchElementException.class,()-> driver.findElement(By.id("error_message")));
+	}
+
+	@Test
+	public void checkIfLoggedOutMessageIsShownWithoutLogin() throws InterruptedException{
+		driver.get("http://localhost:" + this.port + "/login");
+		Assertions.assertThrows(NoSuchElementException.class,()-> driver.findElement(By.id("logged_out_message")));
+	}
 }
