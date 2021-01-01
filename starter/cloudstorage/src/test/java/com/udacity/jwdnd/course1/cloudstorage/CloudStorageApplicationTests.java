@@ -34,34 +34,4 @@ class CloudStorageApplicationTests {
 		}
 	}
 
-	@Test
-	public void getLoginPage() throws InterruptedException{
-		driver.get("http://localhost:" + this.port + "/login");
-		Thread.sleep(500);
-
-		Assertions.assertEquals("Login", driver.getTitle());
-
-	}
-
-	@Test
-	public void checkIfHomePageLoadsWithoutLogin() throws InterruptedException{
-
-		driver.get("http://localhost:" + this.port + "/home");
-		Thread.sleep(500);
-		Assertions.assertNotEquals("Home",driver.getTitle());
-		Assertions.assertEquals("Login",driver.getTitle());
-
-	}
-
-	@Test
-	public void checkIfErrorMessageMessageIsShownWithoutLogin() throws InterruptedException{
-		driver.get("http://localhost:" + this.port + "/login");
-		Assertions.assertThrows(NoSuchElementException.class,()-> driver.findElement(By.id("error_message")));
-	}
-
-	@Test
-	public void checkIfLoggedOutMessageIsShownWithoutLogin() throws InterruptedException{
-		driver.get("http://localhost:" + this.port + "/login");
-		Assertions.assertThrows(NoSuchElementException.class,()-> driver.findElement(By.id("logged_out_message")));
-	}
 }
