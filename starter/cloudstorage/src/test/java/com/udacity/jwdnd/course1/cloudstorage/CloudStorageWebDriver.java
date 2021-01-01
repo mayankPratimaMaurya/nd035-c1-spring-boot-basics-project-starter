@@ -1,34 +1,33 @@
 package com.udacity.jwdnd.course1.cloudstorage;
 
+import com.udacity.jwdnd.course1.cloudstorage.page.LoginPage;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
-import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class CloudStorageApplicationTests {
+class CloudStorageWebDriver {
 
 	@LocalServerPort
-	private int port;
+	protected int port;
 
-	private WebDriver driver;
+	protected WebDriver driver;
 
 	@BeforeAll
 	static void beforeAll() {
 		WebDriverManager.chromedriver().setup();
 	}
 
-	@BeforeEach
-	public void beforeEach() {
-		this.driver = new ChromeDriver();
-	}
+//	@BeforeEach
+//	protected void beforeEach() {
+//		this.driver = new ChromeDriver();
+//	}
 
 	@AfterEach
-	public void afterEach() {
+	protected void afterEach() {
 		if (this.driver != null) {
 			driver.quit();
 		}
