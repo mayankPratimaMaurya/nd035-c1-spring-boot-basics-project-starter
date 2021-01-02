@@ -14,7 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.openqa.selenium.NoSuchElementException;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class SignUpTest extends CloudStorageWebDriver{
+public class SignUpTest extends CloudStorageWebDriver {
 
     private SignUpPage signUpPage;
     private LoginPage loginPage;
@@ -22,79 +22,108 @@ public class SignUpTest extends CloudStorageWebDriver{
     UserService service;
 
 
-    @AfterEach 
-    void clean(){
+    @AfterEach
+    void clean() {
         signUpPage = null;
     }
 
-    private void reLoadURL(){
+    private void reLoadURL() {
         this.driver = new ChromeDriver();
         driver.get("http://localhost:" + this.port + "/signup");
         signUpPage = new SignUpPage(driver);
     }
 
     @Test
-    public void testBackToLoginPageLink(){
+    public void testBackToLoginPageLink() {
         reLoadURL();
         signUpPage.backToLoginClicked();
-        Assertions.assertEquals("Login",driver.getTitle());
+        Assertions.assertEquals("Login", driver.getTitle());
     }
 
     @Test
-    public void testIfContinueToLoginPageLinkNavigatesToLoginPage(){
-        reLoadURL();
-        User user = new User(null, "asdfghjkl1", null, "lkjhgfdsa", "mayank","Maurya");
-        signUpPage.fillFormAndSubmit(user);
+    public void testIfContinueToLoginPageLinkNavigatesToLoginPage() throws InterruptedException {
+        User user = signup("asdfghjkl11");
         signUpPage.continueToLoginpage();
-        Assertions.assertEquals("Login",driver.getTitle());
+        Assertions.assertEquals("Login", driver.getTitle());
     }
 
     @Test
-    public void checkIfSignedUpSuccessMessageIsSeenOnInitialSignUpPageLoad(){
+    public void checkIfSignedUpSuccessMessageIsSeenOnInitialSignUpPageLoad() {
         reLoadURL();
-        Assertions.assertThrows(NoSuchElementException.class, ()-> driver.findElement(By.name("signedUpSuccess")));
+        Assertions.assertThrows(NoSuchElementException.class, () -> driver.findElement(By.name("signedUpSuccess")));
     }
 
     @Test
-    public void checkIfErrorMessageIsSeenOnInitialSignUpPageLoad(){
+    public void checkIfErrorMessageIsSeenOnInitialSignUpPageLoad() {
         reLoadURL();
-        Assertions.assertThrows(NoSuchElementException.class, ()-> driver.findElement(By.name("signUpError")));
+        Assertions.assertThrows(NoSuchElementException.class, () -> driver.findElement(By.name("signUpError")));
     }
 
     @Test
-    public void testSignUpSucessMessageFlow(){
-        reLoadURL();
-        User user = new User(null, "asdfghjkl2", null, "lkjhgfdsa", "mayank","Maurya");
-        signUpPage.fillFormAndSubmit(user);
-        Assertions.assertTrue(driver.findElement(By.name("signedUpSuccess"))!=null);
-    }
-
-   @Test
-   public void ifUsernameIsAvailableToUse(){
-
-       reLoadURL();
-       User user = new User(null, "asdfghjkl3", null, "lkjhgfdsa", "mayank","Maurya");
-       signUpPage.fillFormAndSubmit(user);
-       signUpPage.fillFormAndSubmit(user);
-        Assertions.assertTrue(driver.findElement(By.name("signUpError"))!=null);
-   }
-
-    @Test
-    void addOneUserInDBAndCheckICorrectValuesAreUpdated(){
-        User user = new User(null, "asdfghjkl4", null, "lkjhgfdsa", "mayank", "maurya");
-        Assertions.assertEquals(1,service.createUser(user));
-        Assertions.assertEquals(user.getUsername(),service.getUser(user.getUsername()).getUsername());
-        Assertions.assertEquals(user.getFirstname(),service.getUser(user.getUsername()).getFirstname());
-        Assertions.assertEquals(user.getLastname(),service.getUser(user.getUsername()).getLastname());
+    void addOneUserInDBAndCheckICorrectValuesAreUpdated() {
+        User user = getUser("asdfghjkl4");
+        Assertions.assertEquals(1, service.createUser(user));
+        Assertions.assertEquals(user.getUsername(), service.getUser(user.getUsername()).getUsername());
+        Assertions.assertEquals(user.getFirstname(), service.getUser(user.getUsername()).getFirstname());
+        Assertions.assertEquals(user.getLastname(), service.getUser(user.getUsername()).getLastname());
     }
 
     @Test
-    void checkIfUsernameIsAvailableToUse(){
-        User user = new User(null, "asdfghjkl5", null, "lkjhgfdsa", "mayank", "maurya");
+    void checkIfUsernameIsAvailableToUse() {
+        User user = getUser("asdfghjkl5");
         Assertions.assertTrue(service.isUserNameAvailable(user.getUsername()));
 
-        Assertions.assertEquals(1,service.createUser(user));
+        Assertions.assertEquals(1, service.createUser(user));
 
         Assertions.assertFalse(service.isUserNameAvailable(user.getUsername()));
+    }
+
+    @Test
+    public void testSignUpSucessMessageFlow() {
+        reLoadURL();
+        User user = getUser("asdfghjkl2");
+        signUpPage.fillFormAndSubmit(user);
+        Assertions.assertTrue(driver.findElement(By.name("signedUpSuccess")) != null);
+    }
+
+    @Test
+    public void ifUsernameIsAvailableToUse() throws InterruptedException {
+        User user = signup("asdfghjkl3");
+        signUpPage.fillFormAndSubmit(user);
+        Assertions.assertTrue(driver.findElement(By.name("signUpError")).getText() != null);
+        System.out.print(signUpPage.getErrorMessageText());
+        Assertions.assertTrue(signUpPage.getErrorMessageText().equals("User Already Exists!!"));
+    }
+
+    @Test
+    public void signUpAsANewUserAndLoginWithNewCredentailsFlowTest() throws InterruptedException {
+
+        User user = signup("asdfghjkl1");
+        login(user);
+        Thread.sleep(2000);
+        Assertions.assertEquals("Home", driver.getTitle());
+    }
+
+    private void login(User user) throws InterruptedException {
+
+        signUpPage.continueToLoginpage();
+        Assertions.assertEquals("Login", driver.getTitle());
+        Thread.sleep(2000);
+        loginPage = new LoginPage(driver);
+        loginPage.enterCredentialsAndSubmit(user.getUsername(), user.getPassword());
+
+    }
+
+    private User signup(String userName) throws InterruptedException {
+
+        reLoadURL();
+        User user = getUser(userName);
+        signUpPage.fillFormAndSubmit(user);
+        Thread.sleep(5000);
+        return user;
+    }
+
+    private User getUser(String userName) {
+        return new User(null, userName, null, "lkjhgfdsa", "mayank", "maurya");
     }
 }

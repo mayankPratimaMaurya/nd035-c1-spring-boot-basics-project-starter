@@ -26,20 +26,22 @@ public class SignUpController {
     @PostMapping()
     String createUserForCloudStorage(@ModelAttribute User user, Model model){
 
-        boolean isSignUpSucess= false;
-        boolean isSignUpError = false;
+        String signUpError = null;
 
-        if(userService.isUserNameAvailable(user.getUsername()))
-            isSignUpError= true;
+        if(!userService.isUserNameAvailable(user.getUsername()))
+            signUpError = "User Already Exists!!";
 
-        if (!isSignUpError) {
+        if (signUpError == null) {
             int rowsAdded = userService.createUser(user);
-            if (rowsAdded > 0)
-                isSignUpSucess = true;
+            if (rowsAdded < 0)
+                signUpError = "Issue in creating User. Please try again";
         }
 
-        model.addAttribute("isSignUpSucess",isSignUpSucess);
-        model.addAttribute("isSignUpError",isSignUpError);
+        if(signUpError == null) {
+            model.addAttribute("isSignUpSucess", true);
+        }else{
+            model.addAttribute("signUpError",signUpError);
+        }
 
         return "signup";
     }

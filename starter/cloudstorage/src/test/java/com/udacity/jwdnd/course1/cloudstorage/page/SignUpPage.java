@@ -29,6 +29,9 @@ public class SignUpPage {
     @FindBy(name="submit_SignUp")
     WebElement submit_SignUp;
 
+    @FindBy(name="signUpError")
+    WebElement signUpError;
+
     public SignUpPage(WebDriver driver){
         PageFactory.initElements(driver,this);
     }
@@ -49,5 +52,9 @@ public class SignUpPage {
 
     public void  continueToLoginpage(){
         this.goToLoginPage.click();
+    }
+
+    public String getErrorMessageText(){
+        return this.signUpError.getText();
     }
 }
