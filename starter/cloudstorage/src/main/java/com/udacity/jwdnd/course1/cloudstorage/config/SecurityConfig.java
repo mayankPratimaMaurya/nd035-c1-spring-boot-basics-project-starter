@@ -27,7 +27,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception{
 
         http.authorizeRequests()
-                .antMatchers("/signup", "/css/**", "/js/**").permitAll()
+                .antMatchers("/signup","/h2/**", "/css/**", "/js/**").permitAll()
                 .anyRequest().authenticated();
 
         http.formLogin()
@@ -36,5 +36,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.formLogin()
                 .defaultSuccessUrl("/home", true);
+
+        http.csrf().disable();
+        http.headers().frameOptions().disable();
     }
 }

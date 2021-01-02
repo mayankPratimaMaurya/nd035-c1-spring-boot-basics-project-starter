@@ -19,12 +19,12 @@ public class SignUpController {
 
     }
     @GetMapping()
-    String loadSignUpPage(){
+    String loadSignUpPage(@ModelAttribute("userModel") User user){
         return "signup";
     }
 
     @PostMapping()
-    String createUserForCloudStorage(@ModelAttribute User user, Model model){
+    String createUserForCloudStorage(@ModelAttribute("userModel") User user, Model model){
 
         String signUpError = null;
 

@@ -20,6 +20,7 @@ public class UserService {
 
     public int createUser(User user){
         SecureRandom random = new SecureRandom();
+        System.out.println(user.getFirstname() + user.getLastname());
         byte[] salt = new byte[16];
         random.nextBytes(salt);
         String encodedSalt = Base64.getEncoder().encodeToString(salt);

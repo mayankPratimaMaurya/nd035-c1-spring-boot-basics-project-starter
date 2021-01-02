@@ -14,10 +14,10 @@ public class SignUpPage {
     @FindBy(name="goToLoginPage")
     WebElement goToLoginPage;
 
-    @FindBy(name="firstName")
+    @FindBy(name="firstname")
     WebElement firstname;
 
-    @FindBy(name="lastName")
+    @FindBy(name="lastname")
     WebElement lastname;
 
     @FindBy(name="username")

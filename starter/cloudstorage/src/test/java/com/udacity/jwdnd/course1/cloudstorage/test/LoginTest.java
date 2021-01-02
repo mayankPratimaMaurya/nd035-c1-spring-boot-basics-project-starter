@@ -1,4 +1,4 @@
-package com.udacity.jwdnd.course1.cloudstorage;
+package com.udacity.jwdnd.course1.cloudstorage.test;
 
 
 import com.udacity.jwdnd.course1.cloudstorage.model.User;
@@ -118,8 +118,8 @@ public class LoginTest extends CloudStorageWebDriver {
     private void loadLoginPage() throws InterruptedException {
         Thread.sleep(2000);
         signUpPage.continueToLoginpage();
-        Assertions.assertEquals("Login",driver.getTitle());
         Thread.sleep(2000);
+        Assertions.assertEquals("Login",driver.getTitle());
         loginPage = new LoginPage(driver);
     }
 
