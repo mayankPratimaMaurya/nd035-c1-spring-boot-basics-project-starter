@@ -75,14 +75,26 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
+                                    <tr th:each="note: ${cloudStorageNotes} ">
                                         <td>
-                                            <button type="button" class="btn btn-success">Edit</button>
-                                            <a class="btn btn-danger">Delete</a>
+                                            <form th:action="@{/home}" th:object="${noteToDelete}" method="POST">
+                                                <button type="button"
+                                                        class="btn btn-success"
+                                                        th:data-id="${note.noteid}"
+                                                        th:data-title="${note.notetitle}"
+                                                        th:data-description="${note.notedescription}"
+                                                        onclick="showNoteModal(this.getAttribute('data-id'),this.getAttribute('data-title'),this.getAttribute('data-description'))">Edit</button>
+                                                <button class="btn btn-danger"  type="submit">Delete</button>
+                                                <input type="hidden" name="noteid" th:value="${note.noteid}">
+                                                <input type="hidden" name="notetitle" th:value="${note.notetitle}">
+                                                <input type="hidden"  name="notedescription"th:value="${note.notedescription}">
+                                                <input type="hidden" name="userid" th:value="${note.userid}">
+                                            </form>
                                         </td>
-                                        <th scope="row">Example Note Title</th>
-                                        <td>Example Note Description </td>
+                                        <th scope="row" th:text="${note.notetitle}">Example Note Title</th>
+                                        <td th:text="${note.notedescription}">Example Note Description </td>
                                     </tr>
+
                                 </tbody>
                             </table>
                         </div>
