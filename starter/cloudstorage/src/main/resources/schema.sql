@@ -35,4 +35,8 @@ CREATE TABLE IF NOT EXISTS CREDENTIALS (
     foreign key (userid) references USERS(userid)
 );
 
-INSERT INTO USERS (username, salt, password, firstname, lastname) VALUES('q', 'IY7aZsCdBDZApFNc3tlUyw==', 'zT/LmvIdvTHsKGp80nxdcA==', 'q', 'q')
+INSERT INTO USERS (username, salt, password, firstname, lastname) VALUES('q', 'IY7aZsCdBDZApFNc3tlUyw==', 'zT/LmvIdvTHsKGp80nxdcA==', 'q', 'q');
+INSERT INTO NOTES(notetitle,notedescription,userid) VALUES('titel1','descrption1',1);
+INSERT INTO NOTES(notetitle,notedescription,userid) VALUES('titel2','descrption2',1);
+INSERT INTO NOTES(notetitle,notedescription,userid) VALUES('titel3','descrption3',1);
+INSERT INTO NOTES(notetitle,notedescription,userid) VALUES('title4','descrption4',1);
