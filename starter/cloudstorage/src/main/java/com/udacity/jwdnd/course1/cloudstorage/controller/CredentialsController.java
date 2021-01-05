@@ -36,12 +36,12 @@ public class CredentialsController {
                                 Model resultModel){
 
         addOrEditCredentials.setUserid(userService.getUserID(authentication));
-        int rowAdded=0;
 
+        int rowAdded=0;
         if(addOrEditCredentials.getCredentialid() == null)
             rowAdded = credentialsService.addNewCredentials(addOrEditCredentials);
         else
-            rowAdded = credentialsService.addNewCredentials(addOrEditCredentials);
+            rowAdded = credentialsService.updateCredentials(addOrEditCredentials);
 
         resultModel = resultService.createResultModel(rowAdded,resultModel);
         return "result";

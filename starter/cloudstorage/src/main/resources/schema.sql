@@ -43,7 +43,7 @@ INSERT INTO NOTES(notetitle,notedescription,userid) VALUES('titel2','descrption2
 INSERT INTO NOTES(notetitle,notedescription,userid) VALUES('titel3','descrption3',1);
 INSERT INTO NOTES(notetitle,notedescription,userid) VALUES('title4','descrption4',1);
 
-INSERT INTO CREDENTIALS(url,username,key,password,userid) VALUES('https://google.com','usernae1','key1','passsword1',1);
-INSERT INTO CREDENTIALS(url,username,key,password,userid) VALUES('details2','usernae2','key2','passsword2',1);
-INSERT INTO CREDENTIALS(url,username,key,password,userid) VALUES('details3','usernae3','key3','passsword3',1);
-INSERT INTO CREDENTIALS(url,username,key,password,userid) VALUES('details4','usernae4','key4','passsword4',1);
+-- INSERT INTO CREDENTIALS(url,username,key,password,userid) VALUES('https://google.com','usernae1','key1','passsword1',1);
+-- INSERT INTO CREDENTIALS(url,username,key,password,userid) VALUES('details2','usernae2','key2','passsword2',1);
+-- INSERT INTO CREDENTIALS(url,username,key,password,userid) VALUES('details3','usernae3','key3','passsword3',1);
+-- INSERT INTO CREDENTIALS(url,username,key,password,userid) VALUES('details4','usernae4','key4','passsword4',1);
