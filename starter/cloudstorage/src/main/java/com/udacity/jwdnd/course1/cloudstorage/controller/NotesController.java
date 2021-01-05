@@ -34,7 +34,7 @@ public class NotesController {
     @PostMapping("/addEditNote")
     String addOrEditNotes(@ModelAttribute("addOrEditNotes") Notes newNotes, Model resultModel, Authentication authentication){
 
-        newNotes.setUserid(userService.getUser(authentication.getName()).getUserid());
+        newNotes.setUserid(userService.getUserID(authentication));
         int rowAdded =0;
         if(newNotes.getNoteid() == null)
             rowAdded = notesService.addNotes(newNotes);

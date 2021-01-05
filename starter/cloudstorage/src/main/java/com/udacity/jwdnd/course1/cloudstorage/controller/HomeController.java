@@ -28,6 +28,7 @@ public class HomeController {
     @GetMapping("/home")
     String loadHomePage(@ModelAttribute("addOrEditNotes") Notes addOrEditNotes,Authentication authentication, Model model){
         model.addAttribute("cloudStorageNotes",homeService.cloudStorageNotesForUser(authentication));
+        model.addAttribute("cloudStorageCredentials",homeService.cloudStorageCredentialsForUser(authentication));
         return "home";
     }
 

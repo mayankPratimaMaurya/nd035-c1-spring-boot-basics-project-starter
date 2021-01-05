@@ -86,9 +86,6 @@
                                                         onclick="showNoteModal(this.getAttribute('data-id'),this.getAttribute('data-title'),this.getAttribute('data-description'))">Edit</button>
                                                 <button class="btn btn-danger"  type="submit">Delete</button>
                                                 <input type="hidden" name="noteid" th:value="${note.noteid}">
-                                                <input type="hidden" name="notetitle" th:value="${note.notetitle}">
-                                                <input type="hidden"  name="notedescription"th:value="${note.notedescription}">
-                                                <input type="hidden" name="userid" th:value="${note.userid}">
                                             </form>
                                         </td>
                                         <th scope="row" th:text="${note.notetitle}">Example Note Title</th>
@@ -146,14 +143,28 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
+                                <tr th:each="credentials: ${cloudStorageCredentials}">
                                     <td>
-                                        <button type="button" class="btn btn-success">Edit</button>
-                                        <a class="btn btn-danger">Delete</a>
+                                    	<form th:action="@{/deleteCredentials}" th:object="${credentialsToDelete}" method="POST">
+                                            <button
+                                                    th:data-cid="${credentials.credentialid}"
+                                                    th:data-url="${credentials.url}"
+                                                    th:data-username="${credentials.username}"
+                                                    th:data-password="${credentials.password}"
+                                                    onclick="showCredentialModal(
+                                                        this.getAttribute('data-cid'),
+                                                        this.getAttribute('data-url'),
+                                                        this.getAttribute('data-username'),
+                                                        this.getAttribute('data-password'),
+                                                        )"
+                                                    type="button" class="btn btn-success">Edit</button>
+                                            <button class="btn btn-danger"type="submit">Delete</button>
+                                            <input type="hidden" name="credentialid" th:value="${credentials.credentialid}">
+                                        </form>
                                     </td>
-                                    <th scope="row">Example Credential URL</th>
-                                    <td>Example Credential Username</td>
-                                    <td>Example Credential Password</td>
+                                    <th scope="row" th:text="${credentials.url}">Example Credential URL</th>
+                                    <td th:text="${credentials.username}">Example Credential Username</td>
+                                    <td th:text="${credentials.password}">Example Credential Password</td>
                                 </tr>
                                 </tbody>
                             </table>
