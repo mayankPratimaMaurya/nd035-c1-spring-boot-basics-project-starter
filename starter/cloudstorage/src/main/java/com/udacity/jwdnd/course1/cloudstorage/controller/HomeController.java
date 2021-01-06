@@ -2,16 +2,11 @@ package com.udacity.jwdnd.course1.cloudstorage.controller;
 
 import com.udacity.jwdnd.course1.cloudstorage.model.Credentials;
 import com.udacity.jwdnd.course1.cloudstorage.model.Notes;
-import com.udacity.jwdnd.course1.cloudstorage.model.User;
 import com.udacity.jwdnd.course1.cloudstorage.services.HomeService;
-import com.udacity.jwdnd.course1.cloudstorage.services.NotesService;
-import com.udacity.jwdnd.course1.cloudstorage.services.UserService;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.ui.Model;
 
 import java.util.ArrayList;
@@ -34,6 +29,8 @@ public class HomeController {
 
         model.addAttribute("cloudStorageNotes",homeService.cloudStorageNotesForUser(authentication));
         model.addAttribute("cloudStorageCredentials",homeService.cloudStorageCredentialsForUser(authentication));
+        model.addAttribute("cloudStorageFiles",homeService.cloudStorageFilesForUser(authentication));
+
         return "home";
     }
 
