@@ -29,6 +29,14 @@ public class FileService {
         return fileMapper.getFileMetaData(userid);
     }
 
+    public File fetchFile(int fileId){
+        return fileMapper.fetchFile(fileId);
+    }
+
+    public int deleteFile(int fileId){
+        return fileMapper.deleteFile(fileId);
+    }
+
     private File getFileObjectForUser(MultipartFile uploadedFile, Authentication userAuthentication) throws IOException{
 
         File file = new File();

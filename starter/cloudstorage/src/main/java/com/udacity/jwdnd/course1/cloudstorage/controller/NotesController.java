@@ -27,7 +27,8 @@ public class NotesController {
     String deleteNotes(@ModelAttribute("noteToDelete") Notes noteToDelete, Authentication authentication, Model resultModel){
         System.out.println(noteToDelete.getNotedescription());
         int notesDeleted = this.notesService.deleteNotes(noteToDelete.getNoteid());
-        resultModel = resultService.createResultModel(notesDeleted,resultModel);
+        resultService.result.setRowsModified(notesDeleted);
+        resultModel = resultService.createResultModel(resultService.result, resultModel);
         return "result";
     }
 
@@ -41,7 +42,8 @@ public class NotesController {
         else
             rowAdded = notesService.updateNotes(newNotes);
 
-        resultModel = resultService.createResultModel(rowAdded,resultModel);
+        resultService.result.setRowsModified(rowAdded);
+        resultModel = resultService.createResultModel(resultService.result, resultModel);
         return "result";
     }
 }

@@ -26,7 +26,8 @@ public class CredentialsController {
     @PostMapping("/deleteCredentials")
     String deleteCredentials(@ModelAttribute("credentialsToDelete") Credentials credentialsToDelete, Model resultModel){
         int credentialsDeleted = credentialsService.removeCredentials(credentialsToDelete.getCredentialid());
-        resultModel = resultService.createResultModel(credentialsDeleted,resultModel);
+        resultService.result.setRowsModified(credentialsDeleted);
+        resultModel = resultService.createResultModel(resultService.result,resultModel);
         return "result";
     }
 
@@ -43,7 +44,8 @@ public class CredentialsController {
         else
             rowAdded = credentialsService.updateCredentials(addOrEditCredentials);
 
-        resultModel = resultService.createResultModel(rowAdded,resultModel);
+        resultService.result.setRowsModified(rowAdded);
+        resultModel = resultService.createResultModel(resultService.result,resultModel);
         return "result";
     }
 
