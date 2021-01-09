@@ -35,7 +35,9 @@ public class HomeService {
 
     public List<File> cloudStorageFilesForUser(Authentication authentication ){
         int loggedInUserId = userService.getUserID(authentication);
-        return filesService.getFileMetaData(loggedInUserId);
+        return filesService.getAllFileMetaDataForUser(loggedInUserId);
     }
+
+
 
 }

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class NotesController {
@@ -24,17 +25,19 @@ public class NotesController {
     }
 
     @PostMapping("/deleteNotes")
-    String deleteNotes(@ModelAttribute("noteToDelete") Notes noteToDelete, Authentication authentication, Model resultModel){
-        System.out.println(noteToDelete.getNotedescription());
+    String deleteNotes(@ModelAttribute("noteToDelete") Notes noteToDelete, Authentication authentication, RedirectAttributes resultModel){
+        resultService.resultDataRefresh();
+        System.out.println(resultService.result.getErrorMessage() + resultService.result.getRowsModified());
         int notesDeleted = this.notesService.deleteNotes(noteToDelete.getNoteid());
         resultService.result.setRowsModified(notesDeleted);
         resultModel = resultService.createResultModel(resultService.result, resultModel);
-        return "result";
+        return "redirect:/home";
     }
 
     @PostMapping("/addEditNote")
-    String addOrEditNotes(@ModelAttribute("addOrEditNotes") Notes newNotes, Model resultModel, Authentication authentication){
+    String addOrEditNotes(@ModelAttribute("addOrEditNotes") Notes newNotes, RedirectAttributes resultModel, Authentication authentication){
 
+        resultService.resultDataRefresh();
         newNotes.setUserid(userService.getUserID(authentication));
         int rowAdded =0;
         if(newNotes.getNoteid() == null)
@@ -44,6 +47,6 @@ public class NotesController {
 
         resultService.result.setRowsModified(rowAdded);
         resultModel = resultService.createResultModel(resultService.result, resultModel);
-        return "result";
+        return "redirect:/home";
     }
 }

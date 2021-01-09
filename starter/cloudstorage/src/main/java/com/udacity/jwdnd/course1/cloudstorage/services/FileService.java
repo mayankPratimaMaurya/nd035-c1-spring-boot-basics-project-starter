@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -20,12 +21,11 @@ public class FileService {
     }
 
     public int insertFileForUser(MultipartFile uploadedFile, Authentication userAuthentication) throws IOException {
-
-        File file = getFileObjectForUser(uploadedFile,userAuthentication);
+        File file = createFileObjectForUser(uploadedFile,userAuthentication);
         return fileMapper.insertFile(file);
     }
 
-    public List<File> getFileMetaData(int userid){
+    public List<File> getAllFileMetaDataForUser(int userid){
         return fileMapper.getFileMetaData(userid);
     }
 
@@ -37,7 +37,7 @@ public class FileService {
         return fileMapper.deleteFile(fileId);
     }
 
-    private File getFileObjectForUser(MultipartFile uploadedFile, Authentication userAuthentication) throws IOException{
+    private File createFileObjectForUser(MultipartFile uploadedFile, Authentication userAuthentication) throws IOException{
 
         File file = new File();
         file.setFiledata(uploadedFile.getBytes());
@@ -46,5 +46,22 @@ public class FileService {
         file.setFilename(uploadedFile.getOriginalFilename());
         file.setUserid(userService.getUserID(userAuthentication));
         return file;
+    }
+
+    public String checkIfFileToBeUploadedIsValid(MultipartFile fileToUpload, Authentication userAuthentication) {
+
+        String fileName = fileToUpload.getOriginalFilename();
+
+        if(fileName.isEmpty()){
+            return "No file selected. Please select a file to upload.";
+        }
+
+        List<File> fileListForUser = getAllFileMetaDataForUser(userService.getUserID(userAuthentication));
+        boolean ifFileAlreadyExists = fileListForUser.stream().anyMatch(file -> file.getFilename().equals(fileName));
+
+        if(ifFileAlreadyExists){
+            return "File already exists.";
+        }
+        return null;
     }
 }

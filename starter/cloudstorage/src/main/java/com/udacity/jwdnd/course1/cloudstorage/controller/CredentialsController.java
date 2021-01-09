@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class CredentialsController {
@@ -24,20 +25,20 @@ public class CredentialsController {
     }
 
     @PostMapping("/deleteCredentials")
-    String deleteCredentials(@ModelAttribute("credentialsToDelete") Credentials credentialsToDelete, Model resultModel){
+    String deleteCredentials(@ModelAttribute("credentialsToDelete") Credentials credentialsToDelete, RedirectAttributes resultModel){
+        resultService.resultDataRefresh();
         int credentialsDeleted = credentialsService.removeCredentials(credentialsToDelete.getCredentialid());
         resultService.result.setRowsModified(credentialsDeleted);
         resultModel = resultService.createResultModel(resultService.result,resultModel);
-        return "result";
+        return "redirect:/home";
     }
 
     @PostMapping("addEditCredentials")
     String addOrEditCredentials(@ModelAttribute("addOrEditCredentials") Credentials addOrEditCredentials,
                                 Authentication authentication,
-                                Model resultModel){
-
+                                RedirectAttributes resultModel){
+        resultService.resultDataRefresh();
         addOrEditCredentials.setUserid(userService.getUserID(authentication));
-
         int rowAdded=0;
         if(addOrEditCredentials.getCredentialid() == null)
             rowAdded = credentialsService.addNewCredentials(addOrEditCredentials);
@@ -46,7 +47,7 @@ public class CredentialsController {
 
         resultService.result.setRowsModified(rowAdded);
         resultModel = resultService.createResultModel(resultService.result,resultModel);
-        return "result";
+        return "redirect:/home";
     }
 
 }
