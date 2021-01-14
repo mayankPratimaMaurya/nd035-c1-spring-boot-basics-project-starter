@@ -11,9 +11,6 @@ public class SignUpPage {
     @FindBy(name="backToLogin")
     WebElement backToLogin;
 
-    @FindBy(name="goToLoginPage")
-    WebElement goToLoginPage;
-
     @FindBy(name="firstname")
     WebElement firstname;
 
@@ -48,10 +45,6 @@ public class SignUpPage {
 
     public void backToLoginClicked(){
         this.backToLogin.click();
-    }
-
-    public void  continueToLoginpage(){
-        this.goToLoginPage.click();
     }
 
     public String getErrorMessageText(){

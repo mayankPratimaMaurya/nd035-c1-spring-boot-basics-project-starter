@@ -109,22 +109,21 @@ public class LoginTest extends CloudStorageWebDriver {
     }
 
     private void loginWithWrongCredentails(String username , String password) throws InterruptedException{
-
         loadLoginPage();
         loginPage.enterCredentialsAndSubmit(username,password);
-
     }
 
     private void loadLoginPage() throws InterruptedException {
-        Thread.sleep(2000);
-        signUpPage.continueToLoginpage();
-        Thread.sleep(2000);
-        Assertions.assertEquals("Login",driver.getTitle());
+
+        driver.get("http://localhost:" + this.port + "/login");
         loginPage = new LoginPage(driver);
+        Assertions.assertEquals("Login",driver.getTitle());
     }
 
+
+
     private void assertWrongCredentials() {
-        Assertions.assertTrue(driver.findElement(By.id("error_message")).getText().equals("Invalid username or password"));
+        Assertions.assertTrue(driver.findElement(By.name("error_message")).getText().contains("Invalid username or password"));
         Assertions.assertEquals("Login", driver.getTitle());
     }
 }

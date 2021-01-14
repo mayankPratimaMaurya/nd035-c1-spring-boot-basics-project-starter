@@ -11,8 +11,8 @@
     <body class="p-3 mb-2 bg-light text-black">
         <div class="container">
             <div id="logoutDiv">
-                <form action="#" th:action="@{/logout}" method="POST">
-                    <button type="submit" class="btn btn-secondary float-right">Logout</button>
+                <form action="#" th:action="@{/logoutUser}" method="POST">
+                    <button type="submit" name="logoutUser" class="btn btn-secondary float-right">Logout</button>
                 </form>
             </div>
             <div class="alert alert-success alert-dismissible fade show col-md-10 " auto-close="5000" role="alert" th:if="${isSavedSucessfully}">

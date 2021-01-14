@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller()
 @RequestMapping("/signup")
@@ -24,7 +25,7 @@ public class SignUpController {
     }
 
     @PostMapping()
-    String createUserForCloudStorage(@ModelAttribute("userModel") User user, Model model){
+    String createUserForCloudStorage(@ModelAttribute("userModel") User user, Model model , RedirectAttributes reDirect){
 
         String signUpError = null;
 
@@ -38,11 +39,12 @@ public class SignUpController {
         }
 
         if(signUpError == null) {
-            model.addAttribute("isSignUpSucess", true);
-        }else{
-            model.addAttribute("signUpError",signUpError);
+            reDirect.addFlashAttribute("isSignUpSuccess", true);
+            return "redirect:/login";
+
         }
 
+        model.addAttribute("signUpError",signUpError);
         return "signup";
     }
 }

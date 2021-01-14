@@ -40,12 +40,6 @@ public class SignUpTest extends CloudStorageWebDriver {
         Assertions.assertEquals("Login", driver.getTitle());
     }
 
-    @Test
-    public void testIfContinueToLoginPageLinkNavigatesToLoginPage() throws InterruptedException {
-        User user = signup("asdfghjkl11");
-        signUpPage.continueToLoginpage();
-        Assertions.assertEquals("Login", driver.getTitle());
-    }
 
     @Test
     public void checkIfSignedUpSuccessMessageIsSeenOnInitialSignUpPageLoad() {
@@ -87,9 +81,16 @@ public class SignUpTest extends CloudStorageWebDriver {
     }
 
     @Test
-    public void ifUsernameIsAvailableToUse() throws InterruptedException {
+    public void ifUsernameIsNotAvailableToUse() throws InterruptedException {
         User user = signup("asdfghjkl3");
+        Thread.sleep(2000);
+        loginPage = new LoginPage(driver);
+        loginPage.clickSignUpLink();
+        Thread.sleep(10000);
+        user.setFirstname("pratima");
         signUpPage.fillFormAndSubmit(user);
+        Thread.sleep(1000);
+
         Assertions.assertTrue(driver.findElement(By.name("signUpError")).getText() != null);
         System.out.print(signUpPage.getErrorMessageText());
         Assertions.assertTrue(signUpPage.getErrorMessageText().equals("User Already Exists!!"));
@@ -106,9 +107,8 @@ public class SignUpTest extends CloudStorageWebDriver {
 
     private void login(User user) throws InterruptedException {
 
-        signUpPage.continueToLoginpage();
-        Assertions.assertEquals("Login", driver.getTitle());
         Thread.sleep(2000);
+        Assertions.assertEquals("Login", driver.getTitle());
         loginPage = new LoginPage(driver);
         loginPage.enterCredentialsAndSubmit(user.getUsername(), user.getPassword());
 
