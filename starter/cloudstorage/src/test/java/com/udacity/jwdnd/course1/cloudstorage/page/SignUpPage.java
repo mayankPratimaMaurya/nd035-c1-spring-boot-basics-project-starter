@@ -29,6 +29,7 @@ public class SignUpPage {
     @FindBy(name="signUpError")
     WebElement signUpError;
 
+
     public SignUpPage(WebDriver driver){
         PageFactory.initElements(driver,this);
     }
@@ -50,4 +51,5 @@ public class SignUpPage {
     public String getErrorMessageText(){
         return this.signUpError.getText();
     }
+
 }

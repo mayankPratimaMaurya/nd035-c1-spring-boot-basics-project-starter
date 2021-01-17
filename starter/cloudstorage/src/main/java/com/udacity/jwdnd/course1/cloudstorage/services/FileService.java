@@ -56,12 +56,14 @@ public class FileService {
             return "No file selected. Please select a file to upload.";
         }
 
-        List<File> fileListForUser = getAllFileMetaDataForUser(userService.getUserID(userAuthentication));
-        boolean ifFileAlreadyExists = fileListForUser.stream().anyMatch(file -> file.getFilename().equals(fileName));
-
-        if(ifFileAlreadyExists){
+        if(isFileDuplicate(userAuthentication, fileName)){
             return "File already exists.";
         }
         return null;
+    }
+
+    private boolean isFileDuplicate(Authentication userAuthentication, String fileName) {
+        List<File> fileListForUser = getAllFileMetaDataForUser(userService.getUserID(userAuthentication));
+        return fileListForUser.stream().anyMatch(file -> file.getFilename().equals(fileName));
     }
 }

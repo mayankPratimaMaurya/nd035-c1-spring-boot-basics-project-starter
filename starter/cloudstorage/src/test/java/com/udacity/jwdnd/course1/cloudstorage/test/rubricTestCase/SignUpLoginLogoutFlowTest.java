@@ -19,9 +19,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class SignUpLoginLogoutFlowTest extends CloudStorageWebDriver {
 
-    private LoginPage loginPage;
-    private SignUpPage signUpPage;
-    private HomePage homePage;
 
     @Autowired
     UserService userService;
@@ -58,17 +55,17 @@ public class SignUpLoginLogoutFlowTest extends CloudStorageWebDriver {
     }
 
 
-    private void loadLoginPage(){
-        driver.get("http://localhost:" + this.port + "/login");
-        initializePages();
-        Assertions.assertEquals("Login",driver.getTitle());
-    }
-
-    private void initializePages() {
-        loginPage = new LoginPage(driver);
-        signUpPage = new SignUpPage(driver);
-        homePage = new HomePage(driver);
-    }
+//    private void loadLoginPage(){
+//        driver.get("http://localhost:" + this.port + "/login");
+//        initializePages();
+//        Assertions.assertEquals("Login",driver.getTitle());
+//    }
+//
+//    private void initializePages() {
+//        loginPage = new LoginPage(driver);
+//        signUpPage = new SignUpPage(driver);
+//        homePage = new HomePage(driver);
+//    }
 
     private void clickSignUpLink() throws InterruptedException {
         loginPage.clickSignUpLink();
@@ -103,11 +100,11 @@ public class SignUpLoginLogoutFlowTest extends CloudStorageWebDriver {
         return userFromDB;
     }
 
-    private void loginWithSignedUpUserNamePassword(String username, String password) throws InterruptedException{
-        loginPage.enterCredentialsAndSubmit(username,password);
-        Thread.sleep(3000);
-        Assertions.assertEquals("Home",driver.getTitle());
-    }
+//    private void loginWithSignedUpUserNamePassword(String username, String password) throws InterruptedException{
+//        loginPage.enterCredentialsAndSubmit(username,password);
+//        Thread.sleep(3000);
+//        Assertions.assertEquals("Home",driver.getTitle());
+//    }
 
     private void logoutLoggedInUser() throws InterruptedException{
 

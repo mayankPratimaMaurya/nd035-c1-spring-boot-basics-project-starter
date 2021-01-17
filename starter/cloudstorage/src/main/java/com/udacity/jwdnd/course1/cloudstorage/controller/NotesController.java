@@ -27,7 +27,6 @@ public class NotesController {
     @PostMapping("/deleteNotes")
     String deleteNotes(@ModelAttribute("noteToDelete") Notes noteToDelete, Authentication authentication, RedirectAttributes resultModel){
         resultService.resultDataRefresh();
-        System.out.println(resultService.result.getErrorMessage() + resultService.result.getRowsModified());
         int notesDeleted = this.notesService.deleteNotes(noteToDelete.getNoteid());
         resultService.result.setRowsModified(notesDeleted);
         resultModel = resultService.createResultModel(resultService.result, resultModel);

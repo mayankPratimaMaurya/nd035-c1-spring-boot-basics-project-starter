@@ -109,11 +109,11 @@ public class LoginTest extends CloudStorageWebDriver {
     }
 
     private void loginWithWrongCredentails(String username , String password) throws InterruptedException{
-        loadLoginPage();
+        loadLoginPage1();
         loginPage.enterCredentialsAndSubmit(username,password);
     }
 
-    private void loadLoginPage() throws InterruptedException {
+    private void loadLoginPage1() throws InterruptedException {
 
         driver.get("http://localhost:" + this.port + "/login");
         loginPage = new LoginPage(driver);
