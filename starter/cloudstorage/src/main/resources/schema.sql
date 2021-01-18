@@ -36,14 +36,3 @@ CREATE TABLE IF NOT EXISTS CREDENTIALS (
     userid INT,
     foreign key (userid) references USERS(userid)
 );
-
-INSERT INTO USERS (username, salt, password, firstname, lastname) VALUES('q', 'IY7aZsCdBDZApFNc3tlUyw==', 'zT/LmvIdvTHsKGp80nxdcA==', 'q', 'q');
--- INSERT INTO NOTES(notetitle,notedescription,userid) VALUES('titel1','descrption1',1);
--- INSERT INTO NOTES(notetitle,notedescription,userid) VALUES('titel2','descrption2',1);
--- INSERT INTO NOTES(notetitle,notedescription,userid) VALUES('titel3','descrption3',1);
--- INSERT INTO NOTES(notetitle,notedescription,userid) VALUES('title4','descrption4',1);
-
--- INSERT INTO CREDENTIALS(url,username,key,password,userid) VALUES('https://google.com','usernae1','key1','passsword1',1);
--- INSERT INTO CREDENTIALS(url,username,key,password,userid) VALUES('details2','usernae2','key2','passsword2',1);
--- INSERT INTO CREDENTIALS(url,username,key,password,userid) VALUES('details3','usernae3','key3','passsword3',1);
--- INSERT INTO CREDENTIALS(url,username,key,password,userid) VALUES('details4','usernae4','key4','passsword4',1);
