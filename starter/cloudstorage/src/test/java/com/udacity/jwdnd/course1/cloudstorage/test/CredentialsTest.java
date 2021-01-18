@@ -27,7 +27,7 @@ public class CredentialsTest {
         credentialsList.add(new Credentials(0, "https://www.youtube.com", "shamindrashamindra", "", "Qdfkjghdfg#23445350", 1));
         credentialsList.add(new Credentials(0, "https://www.facebook.com", "tushiara", "", "Fjhdlfgjhd@8972348", 1));
         credentialsList.add(new Credentials(0, "https://www.gmail.com", "kiaraa", "", "sfsdlkfh#45E#234", 1));
-
+        currentCredentialID = (int) credentialsService.getAllCredentialsForUser(1).stream().count();
         int credentialCount=0;
         for(Credentials credentials:credentialsList){
             Assertions.assertEquals(1,credentialsService.addNewCredentials(credentials));
@@ -62,15 +62,6 @@ public class CredentialsTest {
         Assertions.assertEquals(count+1,credentialsService.getAllCredentialsForUser(1).stream().count());
     }
 
-    @Test
-    public void getCredentialsWithCredentialsIDTest(){
-        Credentials  credentials = credentialsService.getCredentialsWithCredentialId(currentCredentialID);
-        Assertions.assertEquals("https://www.gmail.com", credentials.getUrl());
-        Assertions.assertNotEquals("sfsdlkfh#45E#234", credentials.getPassword());
-        Assertions.assertEquals("sfsdlkfh#45E#234",credentials.getUnEncryptedPassword());
-        Assertions.assertEquals("kiaraa",credentials.getUsername());
-
-    }
 
     @Test
     public void updateCredentialsTestAlongWithEncryptionAndDecryptionPassword(){
