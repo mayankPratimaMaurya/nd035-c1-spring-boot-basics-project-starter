@@ -1,4 +1,4 @@
-package com.udacity.jwdnd.course1.cloudstorage.test;
+package com.udacity.jwdnd.course1.cloudstorage.test.ignorePersonalTest;
 
 import com.udacity.jwdnd.course1.cloudstorage.model.Credentials;
 import com.udacity.jwdnd.course1.cloudstorage.services.CredentialService;
@@ -14,7 +14,7 @@ import java.util.List;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class CredentialsTest {
-
+/*
     @Autowired
     CredentialService credentialsService;
 
@@ -92,5 +92,5 @@ public class CredentialsTest {
             }
         }
     }
-
+*/
    }

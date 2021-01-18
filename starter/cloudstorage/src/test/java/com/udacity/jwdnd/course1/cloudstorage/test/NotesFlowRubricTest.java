@@ -1,4 +1,4 @@
-package com.udacity.jwdnd.course1.cloudstorage.test.rubricTestCase;
+package com.udacity.jwdnd.course1.cloudstorage.test;
 
 import com.udacity.jwdnd.course1.cloudstorage.model.Notes;
 import com.udacity.jwdnd.course1.cloudstorage.model.User;

@@ -1,4 +1,4 @@
-package com.udacity.jwdnd.course1.cloudstorage.test;
+package com.udacity.jwdnd.course1.cloudstorage.test.ignorePersonalTest;
 
 import com.udacity.jwdnd.course1.cloudstorage.model.Notes;
 import com.udacity.jwdnd.course1.cloudstorage.services.NotesService;
@@ -14,7 +14,7 @@ import java.util.List;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class NotesTest {
 
-    @Autowired
+   /* @Autowired
     private NotesService notesService;
     private List<Notes> notesList;
 
@@ -63,5 +63,5 @@ public class NotesTest {
             notesService.addNotes(notes);
         }
 
-    }
+    } */
 }

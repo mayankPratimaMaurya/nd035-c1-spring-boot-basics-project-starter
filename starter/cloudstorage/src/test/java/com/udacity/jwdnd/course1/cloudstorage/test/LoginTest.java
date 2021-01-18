@@ -4,6 +4,7 @@ package com.udacity.jwdnd.course1.cloudstorage.test;
 import com.udacity.jwdnd.course1.cloudstorage.model.User;
 import com.udacity.jwdnd.course1.cloudstorage.page.LoginPage;
 import com.udacity.jwdnd.course1.cloudstorage.page.SignUpPage;
+import com.udacity.jwdnd.course1.cloudstorage.test.CloudStorageWebDriver;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;

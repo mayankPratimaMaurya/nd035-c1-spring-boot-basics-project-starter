@@ -1,12 +1,8 @@
-package com.udacity.jwdnd.course1.cloudstorage.test.rubricTestCase;
+package com.udacity.jwdnd.course1.cloudstorage.test;
 
 import com.udacity.jwdnd.course1.cloudstorage.model.User;
-import com.udacity.jwdnd.course1.cloudstorage.page.HomePage;
-import com.udacity.jwdnd.course1.cloudstorage.page.LoginPage;
-import com.udacity.jwdnd.course1.cloudstorage.page.SignUpPage;
 import com.udacity.jwdnd.course1.cloudstorage.services.HashService;
 import com.udacity.jwdnd.course1.cloudstorage.services.UserService;
-import com.udacity.jwdnd.course1.cloudstorage.test.CloudStorageWebDriver;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
